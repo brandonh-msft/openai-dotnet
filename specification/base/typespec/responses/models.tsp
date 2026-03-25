@@ -490,6 +490,7 @@ union ToolType {
   code_interpreter: "code_interpreter",
   image_generation: "image_generation",
   local_shell: "local_shell",
+  openapi: "openapi",
 }
 @discriminator("type")
 model Tool {
@@ -2301,6 +2302,32 @@ model MCPToolFilter {
   MCP server is [annotated with `readOnlyHint`](https://modelcontextprotocol.io/specification/2025-06-18/schema#toolannotations-readonlyhint),
   it will match this filter.*/
   read_only?: boolean;
+}
+
+// Tool customization (apply_discriminator): Apply discriminated type base for tools
+/** A tool backed by an OpenAPI specification. */
+model OpenApiTool extends Tool {
+  @doc("""
+    The type of the OpenAPI tool. Always `openapi`.
+    """)
+  type: ToolType.openapi;
+
+  /** The OpenAPI tool definition. */
+  openapi: OpenApiToolDetails;
+}
+
+model OpenApiToolDetails {
+  /** The name of the OpenAPI tool. */
+  name: string;
+
+  /** A description of the OpenAPI tool. */
+  description?: string | null;
+
+  /** Authentication configuration for the OpenAPI tool. */
+  auth?: unknown | null;
+
+  /** The OpenAPI specification for the tool. */
+  spec: unknown;
 }
 
 // Tool customization: Rename to supply base for split input/output models
