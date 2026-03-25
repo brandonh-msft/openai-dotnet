@@ -22,4 +22,11 @@ public partial class ToolDefinition
             Parameters = parameters,
             StrictParameterSchemaEnabled = strictParameterSchemaEnabled,
         };
+
+    public static global::OpenAI.OpenApiToolDefinition CreateOpenApi(string name, BinaryData specification, string description = null, BinaryData authentication = null)
+        => new(new OpenApiToolDefinitionDetails(name, specification)
+        {
+            Description = description,
+            Auth = authentication,
+        });
 }
