@@ -231,7 +231,7 @@ function Invoke-GenAPI {
     if ($systemDiagnosticsDiagnosticSourceRef) { $genapiArgs += @("--assembly-reference", $systemDiagnosticsDiagnosticSourceRef) }
     if ($microsoftBclAsyncInterfacesRef) { $genapiArgs += @("--assembly-reference", $microsoftBclAsyncInterfacesRef) }
 
-    & genapi @genapiArgs
+    & gen-api @genapiArgs
 
     Write-Output "Cleaning up $($Destination)..."
     Write-Output ""
